@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../includes/header.ejs %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/prove01.css" />
+</head>
+
+<body>
+  <% include ../includes/nav.ejs %>
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1><%= title %></h1>   
+      <p>To view this prove assignment, please enter your information below.</p>   
+      <form action="/prove02/result" method="POST">       
+        <div class="flex-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="First Last">                
+        </div>
+        <div class="flex-row">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" placeholder="(xxx)xxx-xxxx">
+        </div>
+        <div class="flex-row">
+          <label for="card">Credit Card</label>
+          <input type="text" id="card" name="card" placeholder="xxxx xxxx xxxx xxxx">        
+        </div>
+        <button type="submit">Submit</button>
+      </form>      
+    </div>    
+  </div>
+  <div class="container">
+    
+  </div>
+</body>
+</html>
+

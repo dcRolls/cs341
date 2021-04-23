@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../includes/header.ejs %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/prove01.css" />
+</head>
+
+<body>
+  <% include ../includes/nav.ejs %>
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1><%= title %></h1>         
+      <h2>You entered the following:</h2>         
+      <div class="table">
+        <div class="col1">Name:</div>
+        <div class="colored col2"><%= name %></div>
+        <div class="col1">Phone:</div>
+        <div class="colored col2"><%= phone %></div>
+        <div class="col1">Credit Card:</div>
+        <div class="colored col2"><%= card %></div>
+      </div>
+    </div>    
+  </div>  
+</body>
+</html>
+
