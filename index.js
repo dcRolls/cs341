@@ -15,7 +15,7 @@ const prove02Routes = require('./routes/prove02');
 
 app.use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
-   .set('view engine', 'ejs')
+   .set('view engine', 'ejs') //this tells compiler to use ejs as the templating engine
    // For view engine as Pug
    //.set('view engine', 'pug') // For view engine as PUG. 
    // For view engine as hbs (Handlebars)

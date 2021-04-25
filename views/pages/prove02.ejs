@@ -1,36 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <% include ../includes/header.ejs %>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/prove01.css" />
-</head>
-
-<body>
-  <% include ../includes/nav.ejs %>
-  <div class="jumbotron text-center">
-    <div class="container">
-      <h1><%= title %></h1>   
-      <p>To view this prove assignment, please enter your information below.</p>   
-      <form action="/prove02/result" method="POST">       
+<% include ../includes/prove02-header.ejs %>              
+      <form action="/prove02/booklist" method="POST">       
         <div class="flex-row">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="First Last">                
+          <label for="booktitle">Book Title</label>
+          <input type="text" id="booktitle" name="booktitle" placeholder="Title">                
         </div>
         <div class="flex-row">
-          <label for="phone">Phone</label>
-          <input type="text" id="phone" name="phone" placeholder="(xxx)xxx-xxxx">
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" placeholder="Author's Name">
         </div>
         <div class="flex-row">
-          <label for="card">Credit Card</label>
-          <input type="text" id="card" name="card" placeholder="xxxx xxxx xxxx xxxx">        
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Book Summary"></textarea>        
         </div>
         <button type="submit">Submit</button>
       </form>      
-    </div>    
-  </div>
-  <div class="container">
-    
-  </div>
-</body>
-</html>
+<% include ../includes/prove02-footer.ejs %>
 
