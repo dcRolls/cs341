@@ -1,0 +1,22 @@
+<header class="main-header">    
+    <nav class="main-header_nav dark">
+        <ul class="main-header_list nav-icon-list">
+            <li><a href="/beemazon/shop"><img class="nav-icon" id="beemazon" src="/images/Beemazon/smalllogo.png" alt="Beemazon"></a></li>                                            
+            <li><a href="/beemazon/shop/cart"><img class="nav-icon" id="cart" src="/images/Beemazon/yellowcart.png" alt="Cart"></a></li>
+        </ul>        
+    </nav>
+    <nav class="main-header_nav lighter">
+        <ul class="main-header_list">            
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/beemazon/shop">Shop</a>
+            </li>       
+            <li class="main-header__item">
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/beemazon/shop">Products</a>
+            </li>       
+            <li class="main-header__item">
+                <a class="<%= path === '/orders' ? 'active' : '' %>" href="/beemazon/shop/orders">Orders</a>
+            </li>                                 
+        </ul>
+    </nav>
+</header>
+

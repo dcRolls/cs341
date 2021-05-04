@@ -41,3 +41,9 @@
   width: 5rem;
   height: 5rem;
 }
+
+#beemazon {
+  height: 4rem;
+  width: auto;
+  margin: 5px 10px 0px 10px;
+}

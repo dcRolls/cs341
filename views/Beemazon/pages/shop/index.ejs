@@ -1,0 +1,18 @@
+<%- include('../../includes/head.ejs') %>
+    <link rel="stylesheet" href="/stylesheets/Beemazon/product.css">    
+    <link rel="stylesheet" href="/stylesheets/Beemazon/carousel.css">
+</head>
+
+<body>
+    <%- include('../../includes/navigation.ejs', categories) %>
+
+    <main>
+        <% if (prods.length > 0) { %>
+            <% prods.forEach(pList => { %>
+                <%- include('../../includes/carousel.ejs', pList) %>
+            <% }) %>
+        <% } else { %>
+            <h1>No Products Found!</h1>
+        <% } %>
+    </main>
+<%- include('../../includes/end.ejs') %>

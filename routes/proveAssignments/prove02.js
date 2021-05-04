@@ -5,9 +5,9 @@ const router = express.Router();
 
 
 router.get('/', (req, res, next) => {
-  res.render('pages/prove02', { 
+  res.render('pages/proveAssignments/prove02', { 
     title: 'Prove 02 - Add a Book',     
-    path: '/prove02', // For pug, EJS     
+    path: 'proveAssignments/02', // For pug, EJS     
     contentCSS: true, // For HBS
   });
 });
@@ -39,9 +39,9 @@ function getBooks() {
 }
 
 function renderbookList(res, booklist) {
-  res.render('pages/prove02-result', { 
+  res.render('pages/proveAssignments/prove02-result', { 
     title: 'Prove 02 - Booklist', 
-    path: '/prove02/booklist', // For pug, EJS 
+    path: 'proveAssignments/02/booklist', // For pug, EJS 
     books: booklist,    
     contentCSS: true // For HBS    
   });

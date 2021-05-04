@@ -1,0 +1,133 @@
+.container {  
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  width: 95%;
+  max-width: 1500px;  
+  margin: 20px auto;
+  padding: 20px 20px 0px 20px;   
+  display: flex;
+  flex-direction: column;    
+  padding-bottom: 10px;  
+}
+
+.card__image {      
+  display: flex;
+  align-items: center;
+  justify-content: center;    
+}
+
+.options {    
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;    
+}
+
+.card__actions {  
+  text-align: center;      
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;  
+}
+
+label {
+  font-weight: bold;
+}
+
+select {
+  margin-left: 20px;
+  border-radius: 5px;
+  min-width: 60%;  
+}
+
+.card__header,
+.card__description,
+.options,
+#price {
+  padding: 1rem;
+}
+
+.card__header h1,
+h2,
+p {
+  margin: 0;
+}
+
+.card__image img {  
+  width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+.card__actions button,
+.card__actions a {  
+  margin: 0 0.25rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  font: inherit;
+  border: 1px solid goldenrod;
+  color: goldenrod;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: goldenrod;
+  color: white;
+}
+
+.btn.danger {
+  color: red;
+  border-color: red;
+}
+
+.btn.danger:hover,
+.btn.danger:active {
+  background: red;
+  color: white;
+}
+
+@media only screen and (min-width: 1000px) {
+  .container {
+    display: grid;  
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(7, 1fr);  
+  }
+
+  .card__header {  
+    grid-column: 1/5;
+    grid-row: 1/1;
+  }
+
+  .card__description {
+    grid-row: 4/6;
+    grid-column: 1/6;      
+  }
+
+  .card__image {    
+    grid-column: 6/-1;
+    grid-row: 1/8;     
+  }
+
+  .options {  
+    grid-row: 3/3;
+    grid-column: 1/6;    
+  }
+
+  #price {  
+    grid-row: 2/2;  
+    grid-column: 1/6;    
+  }
+  
+  .card__actions {     
+    grid-column: 1/6;
+    grid-row: 6/7;      
+  }
+}

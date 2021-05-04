@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+* {  
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(219, 219, 219);  
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main-header {     
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.dark {
+  background-color: rgb(15, 15, 15); 
+}
+
+.lighter {
+  background-color: rgb(41, 41, 41); 
+}
+
+.main-header_nav {      
+  width: 100%;  
+  padding: 0px;
+  margin: 0px auto;
+}
+
+.main-header_list {  
+  width: 100%;
+  display: flex;
+  flex-direction: row;  
+  align-items: center;
+  list-style: none; 
+  margin: 0px; 
+  padding: 2px;  
+}
+
+.nav-icon-list {
+  justify-content: space-between;
+}
+
+.main-header_list li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1px 15px;
+  padding: 5px 10px;  
+}
+
+.main-header_list li:hover {
+  outline: 1px solid white;
+}
+
+.main-header_list a {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-icon {
+  height: 3rem;
+  width: auto;
+}
+
+#cart {
+  height: 2.5rem;
+}
+
+.main-header_list a:active,
+.main-header_list a.active {
+  color: #ffeb3b;  
+}

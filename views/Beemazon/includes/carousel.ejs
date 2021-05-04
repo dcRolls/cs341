@@ -1,0 +1,16 @@
+<% if(products.length > 0) { %>
+<div class="product-list-strip">
+  <div class="category-title">
+    <a href="/beemazon/shop/products/<%= category %>"><%= category %></a>
+  </div>
+  <ul class="items-container">    
+    <% products.forEach(p => { %>
+    <li>
+      <a href="/beemazon/shop/products/item/<%= p.id %>">
+        <img class="item-image" src="/images/beemazon/<%= p.imageUrl %>" alt="<%= p.title %>">        
+      </a>
+    </li>
+    <% }) %>
+  </ul>    
+</div>
+<% } %>
