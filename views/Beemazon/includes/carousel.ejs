@@ -6,7 +6,7 @@
   <ul class="items-container">    
     <% products.forEach(p => { %>
     <li>
-      <a href="/beemazon/shop/products/item/<%= p.id %>">
+      <a href="/beemazon/shop/products/item/<%= p._id %>">
         <img class="item-image" src="/images/Beemazon/<%= p.imageUrl %>" alt="<%= p.title %>">        
       </a>
     </li>

@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
+const mongoConnect = require('./util/database').mongoConnect;
 
 const app = express();
 
@@ -12,5 +13,8 @@ app.use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
    .set('view engine', 'ejs') //this tells compiler to use ejs as the templating engine
    .use(bodyParser({extended: false})) // For parsing the body of a POST
-   .use('/', routes)
-   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+   .use('/', routes);
+
+mongoConnect(() => {   
+   app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+});
