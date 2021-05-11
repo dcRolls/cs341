@@ -1,13 +1,15 @@
 <% if(products.length > 0) { %>
 <div class="product-list-strip">
   <div class="category-title">
-    <a href="/beemazon/shop/products/<%= category %>"><%= category %></a>
+    <a href="/beemazon/shop/products/<%= category._id %>"><%= category.title %></a>
   </div>
   <ul class="items-container">    
     <% products.forEach(p => { %>
     <li>
       <a href="/beemazon/shop/products/item/<%= p._id %>">
-        <img class="item-image" src="/images/Beemazon/<%= p.imageUrl %>" alt="<%= p.title %>">        
+        <img class="item-image" 
+          <%- include('imageSource.ejs', {imageUrl: p.imageUrl}) %>
+          alt="<%= p.title %>">        
       </a>
     </li>
     <% }) %>

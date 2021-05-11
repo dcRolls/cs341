@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {  
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  width: 95%;
+  max-width: 800px;  
+  margin: 20px auto;
+  padding: 20px 20px 0px 20px;   
+  display: flex;
+  flex-direction: column;    
+  padding-bottom: 10px;  
+  align-items: center;
+  border-radius: 5px;
+}
+
+.data-row {
+  width: 95%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+}
+
+input, textarea {    
+  border-radius: 5px;
+  width: 70%;  
+}
+
+input {
+  height: 30px;
+}
+
+textarea {
+  height: 100px;
+}
+
+.options {    
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;    
+}
+
+.card__actions {  
+  text-align: center;      
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;  
+}
+
+label {
+  font-weight: bold;
+}
+
+select {
+  margin-left: 20px;
+  border-radius: 5px;
+  min-width: 60%;  
+}
+

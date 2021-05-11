@@ -1,70 +1,55 @@
-const mongodb = require('mongodb');
-const getDb = require('../../util/database').getDb;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-module.exports = class Product {
-  constructor(title, category, imageUrl, description, options, price, id) {    
-    this.title = title;
-    this.category = category;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.options = options;
-    this.price = price;
-    this._id = id ? new mongodb.ObjectId(id) : null;    
+const productSchema = new Schema({
+  title: { 
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Category'
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  options: {
+    title: String,
+    list: [String],
+    required: false
   }
-  
-  save() {    
-    const db = getDb();
-    let dbop;
-    if(this._id) {
-      dbop = db.collection('products').updateOne({_id: this._id}, {$set: this});
-    } else {
-      dbop = db.collection('products').insertOne(this);
-    }
-    return dbop
-      .then(result => {
-        console.log(result);
-      })
-      .catch( err => {
-        console.log(err);
-      });    
-  }
+});
 
-  static fetchAll(category) {
-    const db = getDb();
-    const filter = (category !== undefined && category !== "") ? {category: category} : '';
-    return db
-      .collection('products')
-      .find(filter)
-      .toArray()
-      .then(products => {
-        return products;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-  
-  static findById(id) {
-    getProductsFromFile("", products => {
-      const db = getdb();
-      return db
-        .collection('products')
-        .find({_id: new mongodb.ObjectID(id)})
-        .next()
-        .then(product => {
-          return product;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
-  }
-
-  static deleteById(id) {
-    const db = getDb();
-    db.collection('products')
-      .deleteOne({_id: new mongodb.ObjectId(id)})
-      .then(() => {})
-      .catch(err => console.log(err));
-  }
+//you can add functions to the mongoose object like this:
+productSchema.statics.findByCategory = function(searchCategory) {
+  const query = { category: searchCategory };  
+  return this.find(query);    
 };
+
+//mongoose takes 'Product, makes it lower case and plural, and creates
+//a table using that modified name.
+module.exports = mongoose.model('Product', productSchema);
+
+
+//to reference another table:
+//userId: {
+//  type: Schema.Types.ObjectId,
+//  ref: 'User //this is the model name you assigned (like 'Product' above)
+//}
+
+//to include the full linked object data in a fetch:
+//Product.find().populate('userId') //this tells mongoose to populate the user id field with the full user data
+
+//to control which fields are returned:
+//.select(title price -_id) //this includes title and price, but excludes _id
+

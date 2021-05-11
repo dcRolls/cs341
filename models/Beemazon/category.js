@@ -1,29 +1,18 @@
-const fs = require('fs');
-const path = require('path');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  'data',
-  "Beemazon",
-  'categories.json'
-);
+const categorySchema = new Schema({
+  title: { 
+    type: String,
+    required: true
+  }  
+});
 
-const getCategoriesFromFile = cb => {
-  fs.readFile(p, (err, fileContent) => {
-    if (err) {
-      cb([]);
-    } else {     
-      cb(JSON.parse(fileContent));
-    }
-  });
+categorySchema.statics.addIfNew = function(category) {
+  const query = { title: category };
+  const update = { expire: new Date() };
+  const options = { upsert: true, new: true, setDefaultsonInsert: true };
+  return this.findOneAndUpdate(query, update, options);    
 };
 
-module.exports = class Category {
-  constructor(title) {    
-    this.title = title;    
-  }
-  
-  static fetchAll(cb) {
-    getCategoriesFromFile(cb);
-  }
-};
+module.exports = mongoose.model('Category', categorySchema);

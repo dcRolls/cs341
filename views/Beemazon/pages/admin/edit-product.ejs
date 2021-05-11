@@ -1,30 +1,44 @@
 <%- include('../../includes/head.ejs') %>    
-    <link rel="stylesheet" href="/stylesheets/Beemazon/product.css">
+    <link rel="stylesheet" href="/stylesheets/Beemazon/editProduct.css">
 </head>
 
 <body>
    <%- include('../../includes/navigation.ejs') %>
 
-    <main>
-        <form class="product-form" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">
-            <div class="form-control">
+    <main>        
+        <form class="container" action="/beemazon/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">
+            <h2><%= pageTitle %></h2>
+            <div class="data-row">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" value="<% if (editing) { %><%= product.title %><% } %>">
             </div>
-            <div class="form-control">
+            <div class="data-row">
+                <label for="category">Category</label>
+                <input type="text" name="category" id="category" value="<% if (editing) { %><%= product.category.title %><% } %>">
+            </div>
+            <div class="data-row">
                 <label for="imageUrl">Image URL</label>
                 <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>">
             </div>
-            <div class="form-control">
-                <label for="price">Price</label>
+            <div class="data-row">
+                <label for="price">Price ($)</label>                                
                 <input type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= product.price %><% } %>">
             </div>
-            <div class="form-control">
+            <div class="data-row">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
             </div>
+            <h3>Options</h3>
+            <div class="data-row">
+                <label for="optionsTitle">Option Text</label>
+                <input type="text" name="optionsTitle" id="optionsTitle" placeholder="Text to display before an options list" value="<% if (editing) { %><%= product.options.title %><% } %>">
+            </div>
+            <div class="data-row">
+                <label for="options">Options List</label>
+                <textarea name="options" id="options" rows="5" placeholder="Option 1, Option2, etc."><% if (editing) { %><%= product.options.list.join(', ') %><% } %></textarea>
+            </div>
             <% if (editing) { %>
-                <input type="hidden" value="<%= product.id %>" name="productId">
+                <input type="hidden" value="<%= product._id %>" name="productId">
             <% } %>
 
             <button class="btn" type="submit"><% if (editing) { %>Update Product<% } else { %>Add Product<% } %></button>

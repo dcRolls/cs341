@@ -7,19 +7,29 @@
         <main>
             <% if (products.length > 0) { %>
                 <ul class="cart__item-list">
+                    <% let total = 0.0 %> 
                     <% products.forEach(p => { %>
                         <li class="cart__item">
-                            <h1><%= p.productData.title %></h1>
-                            <h2>Quantity: <%= p.qty %></h2>
-                            <form action="/cart-delete-item" method="POST">
-                                <input type="hidden" value="<%= p.productData.id %>" name="productId">
+                            <div class="product__header">
+                                <h1><%= p.product.title %></h1>                            
+                                <img class="cart__thumbnail" alt="<% p.product.title %>" <%- include('../../includes/imageSource.ejs', {imageUrl: p.product.imageUrl}) %> >
+                            </div>                            
+                            <h3>Quantity: <%= p.quantity %></h2>
+                            <h3>Price: $<%= p.product.price.toFixed(2) %> each</h3>
+                            <% total += p.quantity * p.product.price %>
+                            <form action="/beemazon/shop/cart-delete-item" method="POST">
+                                <input type="hidden" value="<%= p.product._id %>" name="productId">
                                 <button class="btn danger" type="submit">Delete</button>
                             </form>
                         </li>
                     <% }) %>
                 </ul>
+                <h2>Total: $<%= total.toFixed(2) %></h2>
+                <form class='checkout' action='/beemazon/shop/create-order' method='POST'>
+                    <button class='btn'>Checkout</button>
+                </form>
             <% } else { %>
-                <h1>No Products in Cart!</h1>
+                <h1>No Items in the Cart!</h1>
             <% } %>
         </main>
         <%- include('../../includes/end.ejs') %>
