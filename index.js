@@ -1,4 +1,5 @@
 // Our initial setup (package requires, port number setup)
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')))
    .use('/', routes);
 
 mongoose
-   .connect(DB_URI)
+   .connect(process.env.MONGODB_URI || DB_URI)
    .then(result => {
       app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
    })
