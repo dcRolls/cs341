@@ -11,9 +11,11 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 
 const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
 const DB_URI = process.env.MONGODB_URI || 'mongodb+srv://jefe:nD3VCmT5FxM8MQX0@cs341.ozi23.mongodb.net/Beemazon?retryWrites=true&w=majority'
+
 const User = require('./models/Beemazon/user');
 const csrf = require('csurf');
 const flash = require('connect-flash');
+
 const app = express();
 
 const store = new MongoDBStore({
