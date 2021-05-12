@@ -2,7 +2,7 @@ const category = require('../../models/Beemazon/category');
 const Category = require('../../models/Beemazon/category');
 const Product = require('../../models/Beemazon/product');
 
-exports.getAddProduct = (req, res, next) => {
+exports.getAddProduct = (req, res, next) => {  
   res.render('Beemazon/pages/admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',

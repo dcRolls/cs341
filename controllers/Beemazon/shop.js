@@ -33,15 +33,6 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {  
-  //get hard-coded user first thing
-  // const user = new User({
-  //   name: 'Test User',
-  //   email: 'test@test.com',
-  //   address: 'test addres, test city',
-  //   cart: {items: []}
-  // });
-  // user.save();
-  //get categories  
   Category.find()
       .then(categories => {
         Product.find()
