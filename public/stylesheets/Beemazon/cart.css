@@ -27,8 +27,8 @@ main {
 }
 
 .cart__thumbnail {
-  max-height: 100px;
-  max-width: 100px;
+  max-height: 200px;
+  max-width: 200px;
   width: auto;
   margin: 10px;
 }
@@ -40,7 +40,23 @@ main {
   justify-content: center;
 }
 
-form{ 
-  display: flex;
-  justify-content: center;
+.wrapper { 
+  display: flex;  
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+input[type=number] {
+  margin-left: 10px;
+  color: black;
+  width: 70px;
+  height: 27px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.wrapper .btn {
+  margin-left: 10px;
 }

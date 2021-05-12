@@ -110,7 +110,6 @@ exports.postOrder = (req, res, next) => {
   .catch(err => console.log(err));
 };
   
-
 exports.getOrders = (req, res, next) => {
   Order.find({ 'customer.userId': req.user._id })  
     .then(orders => {        
@@ -121,4 +120,16 @@ exports.getOrders = (req, res, next) => {
       });
     })
     .catch(err => console.log(err));
+};
+
+exports.postCartUpdateQty = (req, res, next) => {  
+  if (parseInt(req.body.quantity) === 0) {
+    this.postCartDeleteProduct(req, res, next);
+  } else {
+    req.user.updateCartItem(req.body.productId, req.body.quantity)
+      .then(result => {
+        res.redirect('/beemazon/shop/cart')
+      })
+      .catch(err => console.log(err));
+  }
 };

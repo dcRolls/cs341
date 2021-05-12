@@ -13,14 +13,21 @@
                             <div class="product__header">
                                 <h1><%= p.product.title %></h1>                            
                                 <img class="cart__thumbnail" alt="<% p.product.title %>" <%- include('../../includes/imageSource.ejs', {imageUrl: p.product.imageUrl}) %> >
-                            </div>                            
-                            <h3>Quantity: <%= p.quantity %></h2>
+                            </div>        
                             <h3>Price: $<%= p.product.price.toFixed(2) %> each</h3>
-                            <% total += p.quantity * p.product.price %>
-                            <form action="/beemazon/shop/cart-delete-item" method="POST">
-                                <input type="hidden" value="<%= p.product._id %>" name="productId">
-                                <button class="btn danger" type="submit">Delete</button>
-                            </form>
+                            <div class="wrapper">
+                                <h3>Quantity: </h3>
+                                <form class="quantity" action="/beemazon/shop/update-cart" method="POST">                                    
+                                    <input type="hidden" value="<%= p.product._id %>" name="productId">
+                                    <input type="number" step="1" min="0" max="1000" name="quantity" value="<%= p.quantity %>">
+                                    <button class="btn" type="submit">Update</button>
+                                </form>                            
+                                <% total += p.quantity * p.product.price %>
+                                <form action="/beemazon/shop/cart-delete-item" method="POST">
+                                    <input type="hidden" value="<%= p.product._id %>" name="productId">
+                                    <button class="btn danger" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </li>
                     <% }) %>
                 </ul>

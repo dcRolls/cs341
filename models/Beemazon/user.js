@@ -55,5 +55,16 @@ userSchema.methods.deleteItemFromCart = function(productId) {
   return this.save();
 };
 
+userSchema.methods.updateCartItem = function(productId, quantity) {
+  const pIdx = this.cart.items.findIndex(p => {
+    return p.product.toString() === productId.toString();
+  });    
+  if(pIdx >= 0) {
+    this.cart.items[pIdx].quantity = quantity;    
+  } 
+  return this.save();
+};
+
+
 module.exports = mongoose.model('User', userSchema);
 
