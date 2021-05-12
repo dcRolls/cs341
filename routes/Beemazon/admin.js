@@ -1,7 +1,7 @@
 const express = require('express');
 const adminController = require('../../controllers/Beemazon/admin');
 const router = express.Router();
-const isAuth = require('../middleware/is-auth');
+const isAuth = require('../../middleware/is-auth');
 
 router.get('/add-product', isAuth, adminController.getAddProduct);
 
