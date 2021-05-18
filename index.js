@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const User = require('./models/Beemazon/user');
+const Category = require('./models/Beemazon/category');
 const csrf = require('csurf');
 const flash = require('connect-flash');
 
@@ -57,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')))
       if(!req.session.user) {         
          return next();
       }
-      user.findById(req.session.user._id)
+      User.findById(req.session.user._id)
           .then(user => {            
              req.user = user;
              next();
@@ -69,7 +70,12 @@ app.use(express.static(path.join(__dirname, 'public')))
       res.locals.isAuthenticated = req.session.isLoggedIn;   
       res.locals.csrfToken = req.csrfToken();
       res.locals.userName = req.session.user ? req.session.user.name : null;
-      next();
+      Category
+         .find()
+         .then(result => {
+            res.locals.categories = result;            
+            next();
+         });               
    });
 
    app.use('/', routes);

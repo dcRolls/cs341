@@ -5,21 +5,18 @@
 <body>
    <%- include('../../includes/navigation.ejs') %>
 
-    <main>
+    <main class="container">
         <% if (errorMessage) { %>
             <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %>
-        <form class="login-form" action="/login" method="POST">          
-          <div class="form-control">
-              <label for="email">E-Mail</label>
-              <input type="email" name="email" id="email">
-          </div>
-          <div class="form-control">
-              <label for="password">Password</label>
-              <input type="password" name="password" id="password">
-          </div>
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button class="btn" type="submit">Login</button>
+        <form class="grid" action="/beemazon/auth/login" method="POST">          
+            <label for="email">E-Mail</label>
+            <input type="email" name="email" id="email">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn gapped full-span" type="submit">Login</button>          
         </form>
+        <a class="gapped" href="/beemazon/auth/signup">New to Beemazon?</a>
     </main>
 <%- include('../../includes/end.ejs') %>

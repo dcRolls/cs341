@@ -18,12 +18,14 @@
                             <div class="wrapper">
                                 <h3>Quantity: </h3>
                                 <form class="quantity" action="/beemazon/shop/update-cart" method="POST">                                    
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <input type="hidden" value="<%= p.product._id %>" name="productId">
-                                    <input type="number" step="1" min="0" max="1000" name="quantity" value="<%= p.quantity %>">
+                                    <input type="number" step="1" min="0" max="1000" name="quantity" value="<%= p.quantity %>">                                    
                                     <button class="btn" type="submit">Update</button>
                                 </form>                            
                                 <% total += p.quantity * p.product.price %>
                                 <form action="/beemazon/shop/cart-delete-item" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <input type="hidden" value="<%= p.product._id %>" name="productId">
                                     <button class="btn danger" type="submit">Delete</button>
                                 </form>
@@ -33,6 +35,7 @@
                 </ul>
                 <h2>Total: $<%= total.toFixed(2) %></h2>
                 <form class='checkout' action='/beemazon/shop/create-order' method='POST'>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class='btn'>Checkout</button>
                 </form>
             <% } else { %>

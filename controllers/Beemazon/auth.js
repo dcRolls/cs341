@@ -1,45 +1,45 @@
 const bcrypt = require('bcryptjs');
 const User = require('../../models/Beemazon/user')
 
-function getErrorMessage(flash) {
+function getErrorMessage(flash) {  
   return flash.length > 0 ? flash[0] : null;
 }
 
-exports.getLogin = (req, res, next) => {
+exports.getLogin = (req, res, next) => {    
+  const errMsg = getErrorMessage(req.flash('error'));  
   res.render('Beemazon/pages/auth/login', {
     path: '/login',
     pageTitle: 'Login',
-    errorMessage: getErrorMessage(req.flash('error'))
+    errorMessage: errMsg
   });
 };
 
 exports.postLogin = (req, res, next) => {
   User.findOne( {email: req.body.email} )
     .then(user => {
-      if (!user) {
-        req.flash('error', 'Invalid credentials.');
+      if (!user) {        
+        req.flash('error', 'Invalid credentials.');                      
         return res.redirect('/beemazon/auth/login');
       }
       bcrypt.compare(req.body.password, user.password)
       .then(matches => {
-        if (matches) {
+        if (matches) {          
           req.session.isLoggedIn = true;
           req.session.user = user;
           return req.session.save(err => {
             res.redirect('/beemazon/');
           });          
-        }
+        }        
         req.flash('error', 'Invalid credentials.');
         res.redirect('/beemazon/auth/login');
       })
-      .catch(err => {        
+      .catch(err => {            
         console.log(err);
         req.flash('error', 'System Error.');
         res.redirect('/beemazon/auth/login');
       });
-    });
-    
-  res.redirect('/', );
+    })
+    .catch(err => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
@@ -49,9 +49,9 @@ exports.postLogout = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
-  res.render('/beemazon/auth/signup', {
+  res.render('Beemazon/pages/auth/signup', {
     path: '/signup',
-    pageTitle: 'Register Account',
+    pageTitle: 'Register New Account',
     errorMessage: getErrorMessage(req.flash('error'))
   });
 };
@@ -66,7 +66,7 @@ exports.postSignup = (req, res, next) => {
     return bcrypt
       .hash(req.body.password, 12)
       .then(hashedPwd => {
-        const user = newUser({
+        const user = new User({
           email: req.body.email,
           password: hashedPwd,
           name: req.body.name

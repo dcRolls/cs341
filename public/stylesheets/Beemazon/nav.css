@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
 * {  
-  box-sizing: border-box;
+  box-sizing: border-box;  
 }
 
 body {
@@ -29,20 +29,25 @@ body {
   width: 100%;  
   padding: 0px;
   margin: 0px auto;
+  display: flex;
 }
 
-.main-header_list {  
+.split-content {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;  
+  flex-wrap: wrap;
+}
+
+.main-header_list {    
   display: flex;
   flex-direction: row;  
   align-items: center;
   list-style: none; 
   margin: 0px; 
   padding: 2px;  
-}
-
-.nav-icon-list {
-  justify-content: space-between;
 }
 
 .main-header_list li {
@@ -141,6 +146,10 @@ body {
   color: white;
 }
 
-.right {
-  justify-content: right;
+.text-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font: inherit; 
+  cursor: pointer;
 }

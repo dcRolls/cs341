@@ -1,6 +1,7 @@
 const category = require('../../models/Beemazon/category');
 const Category = require('../../models/Beemazon/category');
 const Product = require('../../models/Beemazon/product');
+const user = require('../../models/Beemazon/user');
 
 exports.getAddProduct = (req, res, next) => {  
   res.render('Beemazon/pages/admin/edit-product', {
@@ -19,6 +20,7 @@ exports.postAddProduct = (req, res, next) => {
         price: req.body.price,
         description: req.body.description,
         category: category._id,
+        seller: req.session.user._id,
         options: {
           title: req.body.optionsTitle,
           list: req.body.options.split(',')
@@ -65,6 +67,7 @@ exports.postEditProduct = (req, res, next) => {
           product.description = req.body.description;
           product.imageUrl = req.body.imageUrl;
           product.category = category._id;
+          product.seller = req.session.user._id;
           product.options = { 
             title: req.body.optionsTitle,
             list: req.body.options.split(',')
@@ -79,8 +82,8 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.find()
-    .then(products => {
+  Product.find({ seller: req.session.user._id })
+    .then(products => {      
       res.render('Beemazon/pages/admin/products', {
         prods: products,
         pageTitle: 'Admin Products',

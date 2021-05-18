@@ -27,7 +27,12 @@ const productSchema = new Schema({
     title: String,
     list: [String],
     required: false
-  }
+  },
+  seller: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  },
 });
 
 //you can add functions to the mongoose object like this:

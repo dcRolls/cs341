@@ -1,55 +1,64 @@
 <header class="main-header">    
     <nav class="main-header_nav dark">
-        <ul class="main-header_list nav-icon-list">
-            <li><a href="/beemazon/shop"><img class="nav-icon" id="beemazon" src="/images/Beemazon/smalllogo.png" alt="Beemazon"></a></li>                                            
-            <div class="main-header_list">
-                <% if (isAuthenticated) { %>    
-                    <li><a href="/beemazon/admin/products">userName</a></li>
-                    <li><a href="/beemazon/shop/cart"><img class="nav-icon" id="cart" src="/images/Beemazon/yellowcart.png" alt="Cart"></a></li>
-                <% } else { %>                    
-                    <li><a href="/beemazon/auth/login"><img class="nav-icon" id="cart" src="/images/Beemazon/yellowcart.png" alt="Cart"></a></li>
-                <% } %>                         
-            </div>            
-        </ul>        
+        <div class="split-content">
+            <ul class="main-header_list">
+                <li><a href="/beemazon/shop"><img class="nav-icon" id="beemazon" src="/images/Beemazon/smalllogo.png" alt="Beemazon"></a></li>                                                        
+            </ul>        
+            <ul class="main-header_list">
+            <% if (isAuthenticated) { %>    
+                <li><a href="/beemazon/admin/products"><%= userName %></a></li>
+                <li><a href="/beemazon/shop/cart"><img class="nav-icon" id="cart" src="/images/Beemazon/yellowcart.png" alt="Cart"></a></li>
+            <% } else { %>                    
+                <li><a href="/beemazon/auth/login"><img class="nav-icon" id="cart" src="/images/Beemazon/yellowcart.png" alt="Cart"></a></li>
+            <% } %>                         
+            </ul>
+        </div>            
     </nav>
     <nav class="main-header_nav lighter">
-        <ul class="main-header_list">            
-            <li class="main-header__item">
-                <a class="<%= path === '/' ? 'active' : '' %>" href="/beemazon/shop">Shop</a>
-            </li>       
-            <li class="main-header__item">
-                <a class="<%= path === '/products' ? 'active' : '' %>" href="/beemazon/shop">Products</a>
-            </li>       
-            <% if (isAuthenticated) { %>    
-            <li class="main-header__item">
-                <a class="<%= path === '/orders' ? 'active' : '' %>" href="/beemazon/shop/orders">Orders</a>
-            </li>                                         
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle <%= path.includes('admin/') ? 'active' : '' %>" data-toggle="dropdown" role="button" aria-expanded="false"> Seller <span class="triangle"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a class="<%= path === '/admin/products' ? 'active' : ''%>" href="/beemazon/admin/products">Product List</a></li>
-                    <li><a class="<%= path === '/admin/add-product' ? 'active' : ''%>" href="/beemazon/admin/add-product">Add Product</a></li>                                        
-                </ul>
-            </li>                               
-            <% } %>                          
-        </ul>
-        <ul class="main-header_list right">                        
-            <% if (!isAuthenticated) { %>
+        <div class="split-content">
+            <ul class="main-header_list">            
                 <li class="main-header__item">
-                    <a class="<%= path === '/login' ? 'active' : '' %>" href="/beemazon/auth/login">Login</a>
+                    <a class="<%= path === '/' ? 'active' : '' %>" href="/beemazon/shop">Shop</a>
                 </li>       
+                <li class="dropdown">
+                    <a class="dropdown-toggle <%= path.includes('/products') ? 'active' : '' %>" href="#" role="button" aria-expanded="false">Products <span class="triangle"></span></a>                    
+                    <ul class="dropdown-menu" role="menu">
+                        <% categories.forEach(c => { %>
+                            <li><a class="<%= path === '/beemazon/shop/products/' + c.title ? 'active' : ''%>" href="/beemazon/shop/products/<%= c._id %>"><%= c.title %></a></li>                            
+                        <% }) %>
+                    </ul>
+                </li>                            
+                <% if (isAuthenticated) { %>    
                 <li class="main-header__item">
-                    <a class="<%= path === '/signup' ? 'active' : '' %>" href="/beemazon/auth/signup">New Account</a>
-                </li>                                 
-            <% } else { %>
-                <li class="main-header__item">
-                    <form action="/logout" method="POST">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button type="submit">Logout</button>
-                    </form>
-                </li>       
-            <% } %>            
-        </ul>
+                    <a class="<%= path === '/orders' ? 'active' : '' %>" href="/beemazon/shop/orders">Orders</a>
+                </li>                                         
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle <%= path.includes('admin/') ? 'active' : '' %>" data-toggle="dropdown" role="button" aria-expanded="false"> Seller <span class="triangle"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="<%= path === '/admin/products' ? 'active' : ''%>" href="/beemazon/admin/products">Product List</a></li>
+                        <li><a class="<%= path === '/admin/add-product' ? 'active' : ''%>" href="/beemazon/admin/add-product">Add Product</a></li>                                        
+                    </ul>
+                </li>                               
+                <% } %>                          
+            </ul>
+            <ul class="main-header_list right">                        
+                <% if (!isAuthenticated) { %>
+                    <li class="main-header__item">
+                        <a class="<%= path === '/login' ? 'active' : '' %>" href="/beemazon/auth/login">Login</a>
+                    </li>       
+                    <li class="main-header__item">
+                        <a class="<%= path === '/signup' ? 'active' : '' %>" href="/beemazon/auth/signup">New Account</a>
+                    </li>                                 
+                <% } else { %>
+                    <li class="main-header__item">
+                        <form action="/beemazon/auth/logout" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="text-btn" type="submit">Logout</button>
+                        </form>
+                    </li>       
+                <% } %>            
+            </ul>
+        </div>
     </nav>
 </header>
 
