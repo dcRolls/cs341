@@ -1,42 +1,60 @@
 <%- include('../../includes/head.ejs') %>    
     <link rel="stylesheet" href="/stylesheets/Beemazon/editProduct.css">
+    <link rel="stylesheet" href="/stylesheets/Beemazon/validation.css">
 </head>
 
 <body>
    <%- include('../../includes/navigation.ejs') %>
 
-    <main>        
-        <form class="container" action="/beemazon/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <main>             
+        <form class="container" action="/beemazon/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">            
+            <% if (errorMessage.length > 0) { %>
+                <div class="user-message user-message--error">
+                    <% errorMessage.forEach( x => { %>
+                        <p><%= x.msg %></p>
+                    <% }) %>                
+                </div>
+            <% } %>   
             <h2><%= pageTitle %></h2>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="data-row">
                 <label for="title">Title</label>
-                <input type="text" name="title" id="title" value="<% if (editing) { %><%= product.title %><% } %>">
+                <input 
+                    class="<%= errorMessage.find(e => e.param === 'title') ? 'invalid' : '' %>"
+                    type="text" name="title" id="title" value="<% if (editing || hasError) { %><%= product.title %><% } %>">
             </div>
             <div class="data-row">
                 <label for="category">Category</label>
-                <input type="text" name="category" id="category" value="<% if (editing) { %><%= product.category.title %><% } %>">
+                <input 
+                    class="<%= errorMessage.find(e => e.param === 'category') ? 'invalid' : '' %>"
+                    type="text" name="category" id="category" value="<% if (editing || hasError) { %><%= product.category.title %><% } %>">
             </div>
             <div class="data-row">
                 <label for="imageUrl">Image URL</label>
-                <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>">
+                <input 
+                    class="<%= errorMessage.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
+                    type="text" name="imageUrl" id="imageUrl" value="<% if (editing || hasError) { %><%= product.imageUrl %><% } %>">
             </div>
             <div class="data-row">
                 <label for="price">Price ($)</label>                                
-                <input type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= product.price %><% } %>">
+                <input 
+                    class="<%= errorMessage.find(e => e.param === 'price') ? 'invalid' : '' %>"
+                    type="number" name="price" id="price" step="0.01" value="<% if ((editing || hasError) && product.price) { %><%= product.price.toFixed(2) %><% } %>">
             </div>
             <div class="data-row">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
+                <textarea 
+                    class="<%= errorMessage.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                    name="description" id="description" rows="5"><% if (editing || hasError) { %><%= product.description %><% } %></textarea>
             </div>
             <h3>Options</h3>
             <div class="data-row">
                 <label for="optionsTitle">Option Text</label>
-                <input type="text" name="optionsTitle" id="optionsTitle" placeholder="Text to display before an options list" value="<% if (editing) { %><%= product.options.title %><% } %>">
+                <input type="text" name="optionsTitle" id="optionsTitle" placeholder="Text to display before an options list" value="<% if (editing || hasError) { %><%= product.options.title %><% } %>">
             </div>
             <div class="data-row">
                 <label for="options">Options List</label>
-                <textarea name="options" id="options" rows="5" placeholder="Option 1, Option2, etc."><% if (editing) { %><%= product.options.list.join(', ') %><% } %></textarea>
+                <textarea name="options" id="options" rows="5" placeholder="Option 1, Option2, etc."><% if (editing || hasError) { %><%= product.options.list.join(', ') %><% } %></textarea>
             </div>
             <% if (editing) { %>
                 <input type="hidden" value="<%= product._id %>" name="productId">

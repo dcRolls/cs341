@@ -1,7 +1,6 @@
 const Product = require('../../models/Beemazon/product');
 const Category = require('../../models/Beemazon/category');
 const Order = require('../../models/Beemazon/order');
-const errorHandler = require('./error');
 
 
 exports.getProductList = (req, res, next) => {  
@@ -16,7 +15,11 @@ exports.getProductList = (req, res, next) => {
           });
         })        
     })
-    .catch(err => console.log(err));  
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });   
 };
 
 exports.getProduct = (req, res, next) => {  
@@ -29,7 +32,11 @@ exports.getProduct = (req, res, next) => {
         path: '/products'                 
       });
     })
-    .catch(err => console.log(err));      
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });        
 };
 
 exports.getIndex = (req, res, next) => {  
@@ -49,7 +56,11 @@ exports.getIndex = (req, res, next) => {
               });    
           })                    
       })
-    .catch(err => console.log(err));  
+      .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });   
 };
 
 exports.getCart = (req, res, nect) => {
@@ -63,7 +74,11 @@ exports.getCart = (req, res, nect) => {
         products: user.cart.items        
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });   
 };
 
 exports.postCart = (req, res, next) => {  
@@ -74,7 +89,11 @@ exports.postCart = (req, res, next) => {
     .then(result => {      
       res.redirect('/beemazon/shop/cart');
     })
-    .catch(err => console.log(err));  
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });    
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
@@ -82,7 +101,11 @@ exports.postCartDeleteProduct = (req, res, next) => {
     .then(result => {
       res.redirect('/beemazon/shop/cart');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });   
 };
 
 exports.postOrder = (req, res, next) => {  
@@ -107,7 +130,11 @@ exports.postOrder = (req, res, next) => {
   .then(result => {
     res.redirect('/beemazon/shop/orders');
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  });   
 };
   
 exports.getOrders = (req, res, next) => {
@@ -119,7 +146,11 @@ exports.getOrders = (req, res, next) => {
         orders: orders        
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });   
 };
 
 exports.postCartUpdateQty = (req, res, next) => {  
@@ -130,6 +161,10 @@ exports.postCartUpdateQty = (req, res, next) => {
       .then(result => {
         res.redirect('/beemazon/shop/cart')
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });   
   }
 };

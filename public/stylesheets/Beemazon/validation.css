@@ -1,0 +1,15 @@
+.user-message {
+  margin: 20px 0px;
+  border: 1px solid;
+  padding: 20px 20px;
+} 
+
+.user-message--error {
+  color: rgb(185, 0, 0);
+  border-color: rgb(185, 0, 0);
+}
+
+form input.invalid,
+form textarea.invalid {
+  border-color: red;
+}

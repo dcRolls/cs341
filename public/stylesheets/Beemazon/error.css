@@ -1,0 +1,16 @@
+main {
+  width: 90%;
+  margin: 0px auto;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: -50px;    
+}
+
+img.watermark {
+  opacity: 0.2;
+  z-index: -1;  
+}
