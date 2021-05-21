@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const User = require('../../models/Beemazon/user');
-const creds = require('../../data/email');
+const creds = process.env.ROOTURL ? null : require('../../data/email');
 const nodemailer = require('nodemailer');
 const EMAILURL = process.env.ROOTURL || "http://localhost:5000";
 const { validationResult } = require("express-validator/check");
@@ -50,9 +50,7 @@ exports.postLogin = (req, res, next) => {
       });
   }
   User.findOne( {email: req.body.email} )
-    .then(user => {
-      console.log(req.body.email);
-      console.log(user);
+    .then(user => {      
       if (!user) {        
         return res
         .status(422)
@@ -65,8 +63,7 @@ exports.postLogin = (req, res, next) => {
             password: req.body.password 
           }
         });
-      }       
-      console.log(req.body.password);
+      }             
       bcrypt.compare(req.body.password, user.password)
       .then(matches => {
         if (matches) {          
@@ -113,8 +110,7 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  const errors = validationResult(req);
-  console.log(errors.array().find(e => e.param === 'sfname'));
+  const errors = validationResult(req);  
   if (!errors.isEmpty()) {
     return res
       .status(422)
@@ -249,8 +245,7 @@ exports.postNewPassword = (req, res, next) => {
     if (!user) {
       return res.redirect('/beemazon/auth/reset');
     }
-    resetUser = user;    
-    console.log(req.body.password);
+    resetUser = user;        
     bcrypt.hash(req.body.password, 12)
     .then(hashed => {    
       resetUser.password = hashed;
