@@ -54,10 +54,23 @@ router.post('/signup',
 
 router.get('/reset', authController.getReset);
 
-router.post('/reset', authController.postReset);
+router.post('/reset', 
+  [
+    body('email')
+      .isEmail()
+      .withMessage('Please enter a valid email.')
+      .normalizeEmail()  
+  ],
+  authController.postReset);
 
 router.get('/reset/:token', authController.getNewPassword);
 
-router.post('/new-password', authController.postNewPassword);
+router.post('/new-password',
+  [
+    body('password')
+    .isLength({min: 7})
+    .withMessage('Password must be at least 7 characters'),
+  ],
+  authController.postNewPassword);
 
 module.exports = router;

@@ -51,6 +51,8 @@ exports.postLogin = (req, res, next) => {
   }
   User.findOne( {email: req.body.email} )
     .then(user => {
+      console.log(req.body.email);
+      console.log(user);
       if (!user) {        
         return res
         .status(422)
@@ -64,6 +66,7 @@ exports.postLogin = (req, res, next) => {
           }
         });
       }       
+      console.log(req.body.password);
       bcrypt.compare(req.body.password, user.password)
       .then(matches => {
         if (matches) {          
@@ -198,28 +201,44 @@ exports.postReset = (req, res, next) => {
   });
 };
 
-exports.getNewPassword = (req, res, next) => {  
+exports.getNewPassword = (req, res, next) => {    
   User.findOne({resetToken: req.params.token, resetTokenExpiry: {$gt: Date.now()}})
-  .then(user => {    
+  .then(user => {        
     if(!user) {
       return res.redirect('/beemazon/auth/reset');
-    }
+    }    
     res.render('Beemazon/pages/auth/new-password', {
       path: '/new-password',
       pageTitle: 'Reset Password',
       userId: user._id.toString(),
       pwdToken: req.params.token,
-      errorMessage: getErrorMessage(req.flash('error'))
+      password: '',
+      errorMessage: []
     });
   })
   .catch(err => {
+    console.log(err);
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);
   });   
 };
 
-exports.postNewPassword = (req, res, next) => {  
+exports.postNewPassword = (req, res, next) => { 
+  const errors = validationResult(req);  
+  if (!errors.isEmpty()) {
+    let errorsArray = errors.array();   
+    return res
+      .status(422)
+      .render('Beemazon/pages/auth/new-password', {
+        path: '/new-password',
+        pageTitle: 'Reset Password',
+        errorMessage: errorsArray,
+        userId: req.body.userId,
+        pwdToken: req.body.pwdToken,
+        password: req.body.password
+      });
+  } 
   let resetUser;
   User.findOne({  
     resetToken: req.body.pwdToken, 
@@ -231,6 +250,7 @@ exports.postNewPassword = (req, res, next) => {
       return res.redirect('/beemazon/auth/reset');
     }
     resetUser = user;    
+    console.log(req.body.password);
     bcrypt.hash(req.body.password, 12)
     .then(hashed => {    
       resetUser.password = hashed;
