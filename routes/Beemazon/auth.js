@@ -26,18 +26,18 @@ router.post('/signup',
       .withMessage('Your name appears to be too short.')
       .contains(' ')
       .withMessage('A valid first and last name are required'),      
-    body('email')
+    body('email')      
       .isEmail()
       .withMessage('Please enter a valid email.')
-      .custom((value, {req}) => {
+      .normalizeEmail()
+      .custom((value, { req }) => {        
         return User.findOne({ email: value })
           .then(userDoc => {
             if (userDoc) {
               return Promise.reject('An account with this email already exists.');
             }
           });
-      })
-      .normalizeEmail(),
+      }),
     body('password')
       .isLength({min: 7})
       .withMessage('Password must be at least 7 characters'),
