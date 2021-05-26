@@ -11,7 +11,7 @@ router.post('/login',
     body('email')
       .isEmail()
       .withMessage('Please enter a valid email.')
-      .normalizeEmail()  
+      .normalizeEmail()
   ],
 authController.postLogin);
 

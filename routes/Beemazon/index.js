@@ -11,9 +11,9 @@ routes.use('/shop', shopRoutes);
 
 routes.use('/auth', authRoutes);
 
-routes.use('/', (req, res, next) => {    
-    res.redirect('/beemazon/shop'); //send to shop page
-});
+// routes.use('/', (req, res, next) => {    
+//     res.redirect('/beemazon/shop'); //send to shop page
+// });
 
 routes.use(errorController.get404);
 

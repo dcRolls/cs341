@@ -18,51 +18,33 @@ function getErrorMessage(flash) {
   return flash.length > 0 ? flash[0] : null;
 }
 
+function renderLogin(res, email, password, errors) {
+  return res
+    .status(422)
+    .render('Beemazon/pages/auth/login', {
+      path: '/login',
+      pageTitle: 'Login',
+      errorMessage: errors,
+      oldInput: { 
+        email: email, 
+        password: password 
+      }
+    });
+}
+
 exports.getLogin = (req, res, next) => {       
-  res.render('Beemazon/pages/auth/login', {
-    path: '/login',
-    pageTitle: 'Login',
-    errorMessage: [],
-    oldInput: { 
-      email: '', 
-      password: '' 
-    }
-  });
+  return renderLogin(res, '', '', []); 
 };
 
 exports.postLogin = (req, res, next) => {
-  const errors = validationResult(req);
-  const flashErrors = getErrorMessage(req.flash('error'));  
-  if (!errors.isEmpty() || flashErrors !== null) {
-    let errorsArray = errors.array();
-    if (flashErrors !== null)
-      errorsArray.push({msg: flashErrors });
-    return res
-      .status(422)
-      .render('Beemazon/pages/auth/login', {
-        path: '/login',
-        pageTitle: 'Login',
-        errorMessage: errorsArray,
-        oldInput: { 
-          email: req.body.email, 
-          password: req.body.password         
-        }
-      });
+  const errors = validationResult(req);  
+  if (!errors.isEmpty()) {   
+    return renderLogin(res, req.body.email, req.body.password, errors.array());      
   }
   User.findOne( {email: req.body.email} )
     .then(user => {      
       if (!user) {        
-        return res
-        .status(422)
-        .render('Beemazon/pages/auth/login', {
-          path: '/login',
-          pageTitle: 'Login',
-          errorMessage: [{param: 'email', msg: 'Invalid credentials'}],
-          oldInput: { 
-            email: req.body.email, 
-            password: req.body.password 
-          }
-        });
+        return renderLogin(res, req.body.email, req.body.password, [{param: 'email', msg: 'Invalid credentials'}]);              
       }             
       bcrypt.compare(req.body.password, user.password)
       .then(matches => {
@@ -70,11 +52,10 @@ exports.postLogin = (req, res, next) => {
           req.session.isLoggedIn = true;
           req.session.user = user;
           return req.session.save(err => {
-            res.redirect('/beemazon/');
+            res.redirect('/beemazon/shop');
           });          
-        }        
-        req.flash('error', 'Invalid credentials.');
-        res.redirect('/beemazon/auth/login');
+        }                
+        return renderLogin(res, req.body.email, req.body.password, [{param: 'email', msg: 'Invalid credentials'}]);
       })
       .catch(err => {
         const error = new Error(err);
@@ -91,7 +72,7 @@ exports.postLogin = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
-    res.redirect('/beemazon/');
+    res.redirect('/beemazon/shop');
   })
 };
 
@@ -179,7 +160,7 @@ exports.postReset = (req, res, next) => {
       return user.save();
     })
     .then(result => {
-      res.redirect('/beemazon/');
+      res.redirect('/beemazon/shop');
        transporter.sendMail({
         to: req.body.email,
         from: 'authentication@beemazon.com',

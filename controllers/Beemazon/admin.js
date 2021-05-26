@@ -66,14 +66,14 @@ exports.postAddProduct = (req, res, next) => {
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
-    return res.redirect('/');
+    return res.redirect('/beemazon/shop');
   }
   const prodId = req.params.productId;
   Product.findById(prodId)
     .populate('category')
     .then(product => {
       if (!product) {
-        return res.redirect('/');
+        return res.redirect('/beemazon/shop');
       }      
       res.render('Beemazon/pages/admin/edit-product', {
         pageTitle: 'Edit Product',
@@ -119,7 +119,7 @@ exports.postEditProduct = (req, res, next) => {
       Product.findById(req.body.productId)
         .then(product => {     
           if (product.seller.toString() !== req.session.user._id.toString()) {
-            return res.redirect('/beemazon/');
+            return res.redirect('/beemazon/shop');
           }     
           product.title = req.body.title;
           product.price = req.body.price;
