@@ -167,7 +167,7 @@ exports.postReset = (req, res, next) => {
         subject: 'Beemazon Password Reset',
         html: `<h1>Beemazon Credentials Reset</h1>
           <p>You requested a password reset.</p>             
-          <p>Click <a href="${EMAILURL}/beemazon/auth/reset/${token}">this link</a> to set a new password.</p>`
+          <p>Click <a href="${EMAILURL}beemazon/auth/reset/${token}">this link</a> to set a new password.</p>`
       })
     })
     .catch(err => {
