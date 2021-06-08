@@ -43,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
    .set('view engine', 'ejs') //this tells compiler to use ejs as the templating engine
    .use(bodyParser({extended: false})) // For parsing the body of a POST   
+   .use(bodyParser.json())
    .use(
       session({
          secret: 'my secret',

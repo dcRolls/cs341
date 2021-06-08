@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../../includes/header.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/prove08.css" />
+</head>
+
+<body>
+  <% include ../../includes/nav.ejs %>
+  <main class="jumbotron text-center">
+    <h1><%= title %></h1>
+    <div class="flex-wrap" id="items">      
+    </div>      
+    <div class="flex-row">
+      <button class="btn-primary spaced large" type="button" id="first">&lt;&lt;</button>
+      <button class="btn-primary spaced large" type="button" id="prev">&lt;</button>
+      <div>Page <span id='pageNum'>1</span> of <span id='pageLimit'>x</span></div>
+      <button class="btn-primary spaced large" type="button" id="next">&gt;</button>
+      <button class="btn-primary spaced large" type="button" id="last">&gt;&gt;</button>
+    </div>           
+  </main>     
+  <script type='text/javascript'>
+    const baseURL = '<%= baseUrl %>';
+    const model = '<%= model %>';
+  </script> 
+  <script src="/scripts/prove08.js" type="module"></script>
+</body>
+</html>
+

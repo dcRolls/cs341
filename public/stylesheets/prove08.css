@@ -1,0 +1,23 @@
+.card {
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  box-shadow: 10px 10px 2px 1px rgba(50, 50, 50, 0.6);
+  margin: 20px;
+  padding: 10px 5px;
+  width: 330px;
+}
+
+.card img {
+  width: 300px;
+  height: auto;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+a {
+  color: white;
+}
