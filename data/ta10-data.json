@@ -1,0 +1,32 @@
+{
+  "avengers": [
+      {
+          "name": "Tony Stark",
+          "identity": "Iron Man",
+          "powers": "Snark"
+      },
+      {
+          "name": "Steve Rogers",
+          "identity": "Captain America",
+          "powers": "Self-righteousness"
+      },
+      {
+          "name": "Thor Odinson",
+          "identity": "Thor",
+          "powers": "Godliness"
+      },
+      {
+          "name": "Bruce Banner",
+          "identity": "Hulk",
+          "powers": "Smashing"
+      },
+      {
+          "name": "Natasha Romanova",
+          "identity": "Black Widow"          
+      },
+      {
+          "name": "Clint Barton",
+          "identity": "Hawkeye"
+      }
+  ]
+}

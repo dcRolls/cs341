@@ -21,3 +21,30 @@
 a {
   color: white;
 }
+
+.hero {
+  color: rgb(131, 59, 138);
+  font-weight: bold;
+}
+
+.form {
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.row {
+  width: 80%;
+  margin: 5px auto;  
+}
+
+input {
+  margin-left: 10px;  
+  width: 200px;
+  color: black;
+}
+

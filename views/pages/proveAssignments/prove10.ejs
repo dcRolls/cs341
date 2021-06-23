@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../../includes/header.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/prove08.css" />
+</head>
+
+<body>
+  <% include ../../includes/nav.ejs %>
+  <main class="jumbotron text-center">
+    <h1><%= title %></h1>
+    <div class="flex-wrap" id="items">            
+    </div>      
+    <div class="form">
+      <div class="flex-wrap row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div class="flex-wrap row">
+        <label for="identity">Identity</label>
+        <input type="text" id="identity" name="identity">
+      </div>
+      <div class="flex-wrap row">
+        <label for="powers">Powers</label>
+        <input type="text" id="powers" name="powers">
+      </div>      
+      <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
+      <div class="flex-wrap row">
+        <button class="btn-primary spaced large" type="button" id="addbtn">Add</button>      
+      </div>
+    </div>           
+  </main>       
+  <script src="/scripts/prove10.js"></script>
+</body>
+</html>
+

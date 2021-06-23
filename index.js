@@ -23,6 +23,7 @@ const store = new MongoDBStore({
 
 const csrfProtection = csrf();
 
+
 const corsOptions = {
    origin: "https://prove02-jr.herokuapp.com/",
    optionsSuccessStatus: 200
@@ -89,7 +90,18 @@ app.use(express.static(path.join(__dirname, 'public')))
 mongoose
    .connect(DB_URI, options)
    .then(result => {
-      app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+      const server = app.listen(PORT);      
+      console.log(`Listening on ${ PORT }`);
+      const io = require('./socket').init(server);      
+      io.on('connection', socket => {
+         console.log('Client connected');
+         socket.on('new-hero', () => { //client calls for a new hero update
+            socket.broadcast.emit('update'); //broadcast the update to everyone else
+          });
+      });
+      io.on('connect_error', (err) => {
+         console.log(`Connection error: ${err}`);
+      });     
    })
    .catch(err => {
       console.log("Failed to connect to DB", err);
